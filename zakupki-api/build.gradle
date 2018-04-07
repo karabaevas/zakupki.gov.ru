@@ -13,5 +13,9 @@ dependencies {
     // https://mvnrepository.com/artifact/com.rometools/rome
     compile group: 'com.rometools', name: 'rome', version: '1.9.0'
 
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.11.2'
+
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

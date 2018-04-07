@@ -15,10 +15,9 @@ import java.util.stream.Collectors;
 
 public class RssClient44FZ implements IRssClient {
 
-    private static final String RSS_FEED_FOR_44_FZ = "http://zakupki.gov.ru/tinyurl/55c93471-7c0f-4e39-b21c-f0eea6043acd";
+    private static final String RSS_FEED_FOR_44_FZ = "http://zakupki.gov.ru/tinyurl/3d56c2dd-8c4a-460e-a612-8e00007da80e";
 
-    @Override
-    public List<Lot> getMainRssFeed() throws IOException, FeedException {
+    public List<SyndEntry> getMainRssFeed() throws IOException, FeedException {
         URL feedSource = new URL(RSS_FEED_FOR_44_FZ);
         SyndFeedInput input = new SyndFeedInput();
         SyndFeed feed = input.build(new XmlReader(feedSource));
@@ -26,7 +25,6 @@ public class RssClient44FZ implements IRssClient {
 
         List<SyndEntry> syndEntryList = new ArrayList(feed.getEntries());
 
-        List<Lot> lotList = syndEntryList.stream().map(Lot::new).collect(Collectors.toList());
-        return lotList;
+        return syndEntryList;
     }
 }

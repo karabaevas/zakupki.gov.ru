@@ -17,8 +17,7 @@ public class RssClient223FZ implements IRssClient {
 
     private static final String RSS_FEED_FOR_223_FZ = "http://zakupki.gov.ru/tinyurl/1525b6f6-6238-413c-83c8-e2df3f7fff79";
 
-    @Override
-    public List<Lot> getMainRssFeed() throws IOException, FeedException {
+    public List<SyndEntry> getMainRssFeed() throws IOException, FeedException {
         URL feedSource = new URL(RSS_FEED_FOR_223_FZ);
         SyndFeedInput input = new SyndFeedInput();
         SyndFeed feed = input.build(new XmlReader(feedSource));
@@ -26,7 +25,6 @@ public class RssClient223FZ implements IRssClient {
 
         List<SyndEntry> list = new ArrayList(feed.getEntries());
 
-        List<Lot> lotList = list.stream().map(Lot::new).collect(Collectors.toList());
-        return lotList;
+        return list;
     }
 }
