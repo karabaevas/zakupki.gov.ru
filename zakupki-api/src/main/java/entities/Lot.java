@@ -21,6 +21,8 @@ public class Lot {
 
     String owner;
 
+    String topic;
+
     public String getLaw() {
         return law;
     }
@@ -91,5 +93,28 @@ public class Lot {
 
     public void addUpdateDate(LocalDate updateDate) {
         this.modificatitonDate.add(updateDate);
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    @Override
+    public String toString() {
+        return "Lot{" +
+                "type='" + type + '\'' +
+                ", number='" + number + '\'' +
+                ", step='" + step + '\'' +
+                ", currency='" + currency + '\'' +
+                ", law='" + law + '\'' +
+                ", owner='" + owner + '\'' +
+                ", topic='" + topic + '\'' +
+                ", startDate=" + startDate +
+                ", modificatitonDate=" + modificatitonDate +
+                '}';
     }
 }

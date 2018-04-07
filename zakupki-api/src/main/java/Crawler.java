@@ -13,7 +13,7 @@ public class Crawler {
         RssClient94FZ rssClient = new RssClient94FZ();
         try {
             List<SyndEntry> list = rssClient.processMainRssFeed();
-            System.out.println(list);
+//            System.out.println(list);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FeedException e) {

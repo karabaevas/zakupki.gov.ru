@@ -28,6 +28,7 @@ public class LotMapper {
         String[] description = entry.getDescription().getValue().split("<br/>");
         fillLotUsingEntry(lot, description);
 
+        System.out.println(lot.toString());
         return lot;
     }
 
@@ -35,7 +36,8 @@ public class LotMapper {
     void fillLotUsingEntry(Lot lot, String[] info) {
 
         lot.setLaw(parseLaw(info[1]));
-        lot.setOwner(parseOwner(info[7]));
+        lot.setTopic(parseTopic(info[7]));
+        lot.setOwner(parseOwner(info[9]));
         lot.setCurrency(parseCurrency(info[10]));
         lot.setStartDate(parseStartTime(info[11]));
         lot.addUpdateDate(parseUpdateTime(info[12]));
@@ -45,7 +47,7 @@ public class LotMapper {
     private String parseLaw(String s) {
         String[] columns = parseColumns(s);
         String law = columns[1];
-        return law.contains("Размещение выполняется по:") ? law : EMPTY_STRING;
+        return s.contains("Размещение выполняется по:") ? law : EMPTY_STRING;
 
     }
 
@@ -61,7 +63,14 @@ public class LotMapper {
 
     private String parseOwner(String s) {
         String[] columns = parseColumns(s);
-        return columns[1].replace("&quot;", "\"");
+        String result = columns[1];
+        return result;
+    }
+
+    private String parseTopic(String s) {
+        String[] columns = parseColumns(s);
+        String result = columns[1].replace("&quot;", "\"").replace("\r", "").replace("\n", "");
+        return result;
     }
 
     private String[] parseColumns(String time) {
