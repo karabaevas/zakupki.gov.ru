@@ -2,39 +2,22 @@ package mappers;
 
 import com.rometools.rome.feed.synd.SyndEntry;
 import entities.Lot;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-public class LotMapper {
-    private static final String START_TIME = "Размещено:";
-    private static final String UPDATE_TIME = "Обновлено:";
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    public static final String EMPTY_STRING = "";
-
-    //Will help to determine wrong notes in DB
-    LocalDate farFuture = LocalDate.of(4000, 12, 25);
-
-    public Lot mapSyndEntryToLot(SyndEntry entry) {
-        Lot lot = new Lot();
-
-        String title = entry.getTitle();
-        int delimeterIndex = title.indexOf("№");
-        lot.setType(title.substring(0, delimeterIndex - 1));
-        lot.setNumber(title.substring(delimeterIndex, title.length() - 1));
-
-        String[] description = entry.getDescription().getValue().split("<br/>");
-        fillLotUsingEntry(lot, description);
-
-        System.out.println(lot.toString());
-        return lot;
-    }
-
+public class LotMapper44 extends AbstractLotMapper{
+    private final Logger slf4jLogger = LoggerFactory.getLogger(LotMapper44.class);
 
     void fillLotUsingEntry(Lot lot, String[] info) {
 
+        lot.setType(parseType(info[6]));
+        lot.setNumber(parseNumber(info[6]));
         lot.setLaw(parseLaw(info[1]));
         lot.setTopic(parseTopic(info[7]));
         lot.setOwner(parseOwner(info[9]));
@@ -44,43 +27,45 @@ public class LotMapper {
         lot.setStep(parseStep(info[13]));
     }
 
-    private String parseLaw(String s) {
+    String parseType(String s) {
+        String[] columns = parseColumns(s);
+        String type = columns[0];
+        return type;
+    }
+
+    String parseNumber(String s) {
+        String[] columns = parseColumns(s);
+        String number = columns[3];
+        return number;
+    }
+
+    String parseLaw(String s) {
         String[] columns = parseColumns(s);
         String law = columns[1];
-        return s.contains("Размещение выполняется по:") ? law : EMPTY_STRING;
+        return s.contains(LAW) ? law : EMPTY_STRING;
 
     }
 
-    private String parseCurrency(String s) {
+    String parseCurrency(String s) {
         String[] columns = parseColumns(s);
         return columns[1];
     }
 
-    private String parseStep(String s) {
+    String parseStep(String s) {
         String[] columns = parseColumns(s);
         return columns[1];
     }
 
-    private String parseOwner(String s) {
+    String parseOwner(String s) {
         String[] columns = parseColumns(s);
         String result = columns[1];
         return result;
     }
 
-    private String parseTopic(String s) {
+    String parseTopic(String s) {
         String[] columns = parseColumns(s);
         String result = columns[1].replace("&quot;", "\"").replace("\r", "").replace("\n", "");
         return result;
-    }
-
-    private String[] parseColumns(String time) {
-        String[] columns = time.replace("<", "").replace(">", "").replace("/", "").split("strong");
-        columns = Arrays.stream(columns)
-                .filter(value ->
-                        !"".equals(value)
-                )
-                .toArray(String[]::new);
-        return columns;
     }
 
     LocalDate parseStartTime(String startTime) {

@@ -6,23 +6,22 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import entities.Lot;
-import mappers.LotMapper;
+import mappers.AbstractLotMapper;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class RssClient94FZ implements IRssClient {
-    private static LotMapper lotMapper = new LotMapper();
-
-    private static final String RSS_FEED_FOR_94_FZ = "http://zakupki.gov.ru/tinyurl/e0aad7d6-d53c-4f69-8ed9-66738111ad98";
+public abstract class AbstractRssClient {
+    private AbstractLotMapper lotMapper = getLotMapper();
 
     List<SyndEntry> getMainRssFeed() throws IOException, FeedException {
-        URL feedSource = new URL(RSS_FEED_FOR_94_FZ);
+        URL feedSource = new URL(getRssUrl());
         SyndFeedInput input = new SyndFeedInput();
         SyndFeed feed = input.build(new XmlReader(feedSource));
-
 
         List<SyndEntry> list = new ArrayList(feed.getEntries());
         return list;
@@ -39,15 +38,17 @@ public class RssClient94FZ implements IRssClient {
         return resultLotList;
     }
 
-    public List<SyndEntry> processMainRssFeed() throws IOException, FeedException {
+    public List<Lot> processMainRssFeed() throws IOException, FeedException {
         List<SyndEntry> syndEntryList = getMainRssFeed();
         List<Lot> lotList = syndEntryListToLotList(syndEntryList);
         fillLot(lotList);
-        return syndEntryList;
+        return lotList;
     }
 
-    void fillLot(List<Lot> lotList) {
+    abstract void fillLot(List<Lot> lotList);
 
-    }
+    abstract String getRssUrl();
+
+    abstract AbstractLotMapper getLotMapper();
 
 }
