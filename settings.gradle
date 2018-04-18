@@ -2,4 +2,6 @@ rootProject.name = 'zakupki.gov.ru'
 include 'core'
 include 'zakupki-api'
 include 'worker'
+include 'utills'
+findProject(':utills')?.name = '1.0'
 
