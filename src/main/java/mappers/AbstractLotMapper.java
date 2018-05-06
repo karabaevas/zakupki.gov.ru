@@ -1,7 +1,7 @@
 package mappers;
 
 import com.rometools.rome.feed.synd.SyndEntry;
-import entities.Lot;
+import model.Lot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,6 +1,6 @@
 package rss;
 
-import entities.Lot;
+import model.Lot;
 import mappers.AbstractLotMapper;
 import mappers.LotMapper44;
 import org.slf4j.Logger;

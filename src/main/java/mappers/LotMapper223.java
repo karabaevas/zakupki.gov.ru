@@ -1,18 +1,14 @@
 package mappers;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-import entities.Lot;
+import model.Lot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-public class LotMapper94 extends AbstractLotMapper {
-    private final Logger slf4jLogger = LoggerFactory.getLogger(LotMapper94.class);
+public class LotMapper223 extends AbstractLotMapper {
+    private final Logger slf4jLogger = LoggerFactory.getLogger(LotMapper223.class);
+
 
     void fillLotUsingEntry(Lot lot, String[] info) {
 
@@ -58,7 +54,7 @@ public class LotMapper94 extends AbstractLotMapper {
 
     String parseOwner(String s) {
         String[] columns = parseColumns(s);
-        return columns.length < 2 ? "" : columns[1] ;
+        return columns.length == 1 ? CUSTOMER_WAS_NOT_SPECIFIED : columns[1];
     }
 
     String parseTopic(String s) {

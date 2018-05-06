@@ -3,10 +3,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.crawler.zakupki_crawler.*")
-public class Application {
+@ComponentScan("com.crawler.*")
+public class ApplicationStarter {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ApplicationStarter.class, args);
     }
 }

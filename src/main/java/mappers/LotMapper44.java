@@ -1,15 +1,11 @@
 package mappers;
 
 import com.rometools.rome.feed.synd.SyndEntry;
-import entities.Lot;
+import model.Lot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class LotMapper44 extends AbstractLotMapper{
     private final Logger slf4jLogger = LoggerFactory.getLogger(LotMapper44.class);
