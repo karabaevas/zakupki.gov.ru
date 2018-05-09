@@ -1,8 +1,8 @@
-package rss;
+package com.rss;
 
-import model.Lot;
-import mappers.AbstractLotMapper;
-import mappers.LotMapper94;
+import com.mappers.AbstractLotMapper;
+import com.mappers.LotMapper94;
+import com.model.Lot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

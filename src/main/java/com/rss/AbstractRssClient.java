@@ -1,12 +1,12 @@
-package rss;
+package com.rss;
 
+import com.mappers.AbstractLotMapper;
+import com.model.Lot;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
-import model.Lot;
-import mappers.AbstractLotMapper;
 
 import java.io.IOException;
 import java.net.URL;

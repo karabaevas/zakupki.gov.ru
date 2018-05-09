@@ -1,20 +1,27 @@
 package com.crawler;
 
+import com.model.Lot;
+import com.rometools.rome.io.FeedException;
+import com.rss.AbstractRssClient;
+import com.rss.RssClient94;
+
+import java.io.IOException;
+import java.util.List;
+
 public class Crawler {
 
     public void process() {
-        System.out.println("Everyday I shuffle in");
         crawl();
     }
 
     void crawl() {
 
-//        AbstractRssClient rssClient = new RssClient94();
+        AbstractRssClient rssClient = new RssClient94();
 //        AbstractRssClient rssClient1 = new RssClient44();
 //        AbstractRssClient rssClient2 = new RssClient223();
 
-//        try {
-//            List<Lot> list = rssClient.processMainRssFeed();
+        try {
+            List<Lot> list = rssClient.processMainRssFeed();
 //            List<Lot> list1 = rssClient1.processMainRssFeed();
 //            List<Lot> list2 = rssClient2.processMainRssFeed();
 
@@ -29,14 +36,13 @@ public class Crawler {
 //            }
 
 
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (FeedException e) {
-//            e.printStackTrace();
-//        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FeedException e) {
+            e.printStackTrace();
+        }
 
-
-//    }
 
     }
-}
+
+    }

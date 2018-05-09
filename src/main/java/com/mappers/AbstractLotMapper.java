@@ -1,7 +1,8 @@
-package mappers;
+package com.mappers;
 
+
+import com.model.Lot;
 import com.rometools.rome.feed.synd.SyndEntry;
-import model.Lot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,7 +25,7 @@ public abstract class AbstractLotMapper {
 
         String[] description = entry.getDescription().getValue().split("<br/>");
         fillLotUsingEntry(lot, description);
-        System.out.println(lot.toString());
+//        System.out.println(lot.toString());
         return lot;
     }
 

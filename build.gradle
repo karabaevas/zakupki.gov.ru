@@ -10,9 +10,9 @@ buildscript {
     }
 }
 
-allprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
 
     sourceCompatibility = 1.8
 
@@ -26,17 +26,11 @@ allprojects {
         }
         dependencies {
             dependency 'org.projectlombok:lombok:1.16.18'
+            dependency 'com.rometools:rome:1.9.0'
+            dependency 'org.jsoup:jsoup:1.11.3'
+
         }
     }
-
-    dependencies {
-        compileOnly 'org.projectlombok:lombok'
-    }
-}
-
-configure(rootProject) {
-    apply plugin: 'org.springframework.boot'
-
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
 
@@ -47,7 +41,6 @@ configure(rootProject) {
         compile 'org.springframework.boot:spring-boot-starter-web'
 //        compile 'org.flywaydb:flyway-core'
 
-        compile project(':app-starter')
         runtime 'com.h2database:h2'
 
         compileOnly 'org.projectlombok:lombok'
@@ -58,15 +51,10 @@ configure(rootProject) {
         // https://mvnrepository.com/artifact/com.rometools/rome
         compile 'com.rometools:rome'
         compile 'org.jsoup:jsoup'
-    }
-}
+        compileOnly 'org.projectlombok:lombok'
 
-subprojects {
-    dependencies {
-        compile 'org.springframework.boot:spring-boot-starter'
-//        compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
     }
-}
+
 
 springBoot {
     executable = true

@@ -1,4 +1,4 @@
-package rss;
+package com.rss;
 
 //import org.jsoup.Jsoup;
 //import org.jsoup.nodes.Document;

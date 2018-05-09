@@ -1,26 +1,26 @@
-package mappers;
+package com.mappers;
 
-import com.rometools.rome.feed.synd.SyndEntry;
-import model.Lot;
+import com.model.Lot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
-public class LotMapper44 extends AbstractLotMapper{
-    private final Logger slf4jLogger = LoggerFactory.getLogger(LotMapper44.class);
+public class LotMapper223 extends AbstractLotMapper {
+    private final Logger slf4jLogger = LoggerFactory.getLogger(LotMapper223.class);
+
 
     void fillLotUsingEntry(Lot lot, String[] info) {
 
-        lot.setType(parseType(info[6]));
-        lot.setNumber(parseNumber(info[6]));
+        lot.setType(parseType(info[4]));
+        lot.setNumber(parseNumber(info[4]));
         lot.setLaw(parseLaw(info[1]));
-        lot.setTopic(parseTopic(info[7]));
-        lot.setOwner(parseOwner(info[9]));
-        lot.setCurrency(parseCurrency(info[10]));
-        lot.setStartDate(parseStartTime(info[11]));
-        lot.addUpdateDate(parseUpdateTime(info[12]));
-        lot.setStep(parseStep(info[13]));
+        lot.setTopic(parseTopic(info[5]));
+        lot.setOwner(parseOwner(info[7]));
+        lot.setCurrency(parseCurrency(info[8]));
+        lot.setStartDate(parseStartTime(info[9]));
+        lot.addUpdateDate(parseUpdateTime(info[10]));
+        lot.setStep(parseStep(info[11]));
     }
 
     String parseType(String s) {
@@ -54,8 +54,7 @@ public class LotMapper44 extends AbstractLotMapper{
 
     String parseOwner(String s) {
         String[] columns = parseColumns(s);
-        String result = columns[1];
-        return result;
+        return columns.length == 1 ? CUSTOMER_WAS_NOT_SPECIFIED : columns[1];
     }
 
     String parseTopic(String s) {

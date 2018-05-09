@@ -1,9 +1,12 @@
-package model;
+package com.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class Lot {
 
     LocalDate startDate;
 
+    @javax.persistence.Transient
     List<LocalDate> modificatitonDate = new ArrayList<>();
 
     public void addUpdateDate(LocalDate updateDate) {
