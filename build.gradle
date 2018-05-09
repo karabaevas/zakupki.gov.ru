@@ -34,17 +34,14 @@ buildscript {
     dependencies {
         compile 'org.springframework.boot:spring-boot-starter'
 
-//        compile 'org.springframework.boot:spring-boot-starter-actuator'
+
         compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-//        compile 'org.springframework.boot:spring-boot-starter-data-rest'
-//        compile 'org.springframework.data:spring-data-rest-hal-browser'
+
         compile 'org.springframework.boot:spring-boot-starter-web'
-//        compile 'org.flywaydb:flyway-core'
 
         runtime 'com.h2database:h2'
 
         compileOnly 'org.projectlombok:lombok'
-//        compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
 
         testCompile 'org.springframework.boot:spring-boot-starter-test'
 
@@ -54,7 +51,6 @@ buildscript {
         compileOnly 'org.projectlombok:lombok'
 
     }
-
 
 springBoot {
     executable = true
