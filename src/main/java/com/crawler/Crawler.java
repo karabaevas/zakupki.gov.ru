@@ -2,43 +2,27 @@ package com.crawler;
 
 import com.model.Lot;
 import com.rometools.rome.io.FeedException;
-import com.rss.AbstractRssClient;
-import com.rss.RssClient94;
+import com.rss.UniversalRssClient;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@Component
 public class Crawler {
+    Set<Lot> database = new HashSet<>();
 
-    public void process() {
-        crawl();
-    }
-
+    @Scheduled(fixedRate = 10000)
     void crawl() {
-
-        AbstractRssClient rssClient = new RssClient94();
-//        AbstractRssClient rssClient1 = new RssClient44();
-//        AbstractRssClient rssClient2 = new RssClient223();
+        UniversalRssClient rssClient = new UniversalRssClient();
 
         try {
-            List<Lot> list = rssClient.processMainRssFeed();
-//            List<Lot> list1 = rssClient1.processMainRssFeed();
-//            List<Lot> list2 = rssClient2.processMainRssFeed();
+            database.addAll(rssClient.processMainRssFeed());
 
-//            Set<String> set = new HashSet();
-//
-//            for (Lot lot: list ){set.add(lot.get());}
-//            for (Lot lot: list1){set.add(lot.getType());}
-//            for (Lot lot: list2){set.add(lot.getType());}
-
-//            for (String s : set){
-//                System.out.println(s);
-//            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FeedException e) {
+        } catch (IOException | FeedException e) {
             e.printStackTrace();
         }
 

@@ -17,6 +17,8 @@ public class Lot {
     @Id
     String number;
 
+    int version;
+
     String type;
 
     String step;

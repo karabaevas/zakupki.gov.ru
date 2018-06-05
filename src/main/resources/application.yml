@@ -1,0 +1,6 @@
+logging:
+  level:
+    ROOT: error
+  file: ./logsErrors.txt
+
+

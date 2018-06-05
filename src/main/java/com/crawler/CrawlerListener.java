@@ -7,6 +7,6 @@ public class CrawlerListener implements ApplicationListener<ContextRefreshedEven
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         Crawler crawler = new Crawler();
-        crawler.process();
+        crawler.crawl();
     }
 }
