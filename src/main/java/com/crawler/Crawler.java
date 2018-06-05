@@ -21,7 +21,6 @@ public class Crawler {
 
         try {
             database.addAll(rssClient.processMainRssFeed());
-
         } catch (IOException | FeedException e) {
             e.printStackTrace();
         }
