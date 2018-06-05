@@ -1,7 +1,7 @@
 logging:
   level:
     ROOT: error
-    org.springframework.web: error
+    org.springframework.web: info
   file: ./logsErrors.txt
 
 

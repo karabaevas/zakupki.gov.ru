@@ -3,6 +3,8 @@ package com.crawler;
 import com.model.Lot;
 import com.rometools.rome.io.FeedException;
 import com.rss.UniversalRssClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +15,21 @@ import java.util.Set;
 
 @Component
 public class Crawler {
-    Set<Lot> database = new HashSet<>();
+    private final Logger slf4jLogger = LoggerFactory.getLogger(Crawler.class);
+
+    private final UniversalRssClient rssClient = new UniversalRssClient();
+
+    public static Set<Lot> database = new HashSet<>();
+
+    @Scheduled(fixedRate = 60000)
+    void showSize() {
+        slf4jLogger.info("Database entity = " + database.size());
+    }
 
     @Scheduled(fixedRate = 10000)
     void crawl() {
-        UniversalRssClient rssClient = new UniversalRssClient();
-
         try {
-            database.addAll(rssClient.processMainRssFeed());
+            rssClient.processMainRssFeed();
         } catch (IOException | FeedException e) {
             e.printStackTrace();
         }
@@ -28,4 +37,4 @@ public class Crawler {
 
     }
 
-    }
+}

@@ -24,14 +24,13 @@ public class UniversalMapper {
     private static final String UPDATE_TIME = "Обновлено:";
     private static final String TYPE1 = "Электронный аукцион";
 
-
-    static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    static final String EMPTY_STRING = "";
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final String EMPTY_STRING = "";
 
     //Will help to determine wrong notes in DB
-    LocalDate farFuture = LocalDate.of(4000, 12, 25);
+    private LocalDate farFuture = LocalDate.of(4000, 12, 25);
 
-    String[] parseColumns(String time) {
+    private String[] parseColumns(String time) {
         String[] columns = time.replace("<", "").replace(">", "").replace("/", "").split("strong");
         columns = Arrays.stream(columns)
                 .filter(value ->
@@ -41,8 +40,7 @@ public class UniversalMapper {
         return columns;
     }
 
-    void fillLotUsingEntry(Lot lot, String[] info) {
-
+    private void fillLotUsingEntry(Lot lot, String[] info) {
         lot.setType(parseType(info));
         lot.setNumber(parseNumber(info));
         lot.setLaw(parseLaw(info));
@@ -54,7 +52,7 @@ public class UniversalMapper {
         lot.setStep(parseStep(info));
     }
 
-    String parseType(String[] data) {
+    private String parseType(String[] data) {
         String result = "";
         for (String s : data) {
             if (s != null && (s.contains(NUMBER))) {
@@ -67,36 +65,31 @@ public class UniversalMapper {
         return EMPTY_STRING;
     }
 
-    String parseNumber(String[] data) {
-        String result = EMPTY_STRING;
+    private String parseNumber(String[] data) {
         for (String s : data) {
             if (s != null && (s.contains(NUMBER))) {
                 String[] columns = parseColumns(s);
-                String law = columns[3];
-                return law;
+                return columns[3];
             }
         }
-        slf4jLogger.error("Number error: " + result);
+        slf4jLogger.error("Number error: " + EMPTY_STRING);
         return EMPTY_STRING;
     }
 
-    String parseLaw(String[] data) {
-        String result = EMPTY_STRING;
+    private String parseLaw(String[] data) {
         for (String s : data) {
             if (s != null && (s.contains(LAW_CHECK_MESSAGE) || s.contains(LAW_CHECK_MESSAGE))) {
                 String[] columns = parseColumns(s);
-                String law = columns[1];
-                return law;
+                return columns[1];
             }
         }
-        slf4jLogger.error("Law message error: " + result);
+        slf4jLogger.error("Law message error: " + EMPTY_STRING);
         return EMPTY_STRING;
     }
 
-    String parseCurrency(String[] data) {
-        String result = EMPTY_STRING;
+    private String parseCurrency(String[] data) {
         for (String s : data) {
-            if (s != null && (s.contains(PRICE_CHECK_MESSAGE)) || s.contains(PRICE_CHECK_MESSAGE_1)) {
+            if (s.contains(PRICE_CHECK_MESSAGE) || s.contains(PRICE_CHECK_MESSAGE_1)) {
                 String[] columns = parseColumns(s);
                 return columns[1];
             }
@@ -104,23 +97,21 @@ public class UniversalMapper {
         slf4jLogger.error("Price message was not found");
         slf4jLogger.error("data: " + Arrays.toString(data));
 
-        return result;
+        return EMPTY_STRING;
     }
 
-    String parseStep(String[] data) {
-        String result = EMPTY_STRING;
+    private String parseStep(String[] data) {
         for (String s : data) {
             if (s != null && s.contains(STEP_CHECK_MESSAGE)) {
                 String[] columns = parseColumns(s);
                 return columns[1];
             }
         }
-        slf4jLogger.error("Step message error: " + result);
+        slf4jLogger.error("Step message error: " + EMPTY_STRING);
         return EMPTY_STRING;
     }
 
-    String parseOwner(String[] data) {
-        String result = EMPTY_STRING;
+    private String parseOwner(String[] data) {
         for (String s : data) {
             if (s != null && (s.contains(OWNER_CHECK_MESSAGE) || s.contains(OWNER_CHECK_MESSAGE_1))) {
                 String[] columns = parseColumns(s);
@@ -131,10 +122,10 @@ public class UniversalMapper {
         slf4jLogger.error("Owner message was not found");
         slf4jLogger.error("data: " + Arrays.toString(data));
 
-        return result;
+        return EMPTY_STRING;
     }
 
-    String parseTopic(String[] data) {
+    private String parseTopic(String[] data) {
         String result = EMPTY_STRING;
         for (String s : data) {
             if (s != null && s.contains(TOPIC_CHECK_MESSAGE)) {
@@ -147,7 +138,7 @@ public class UniversalMapper {
         return EMPTY_STRING;
     }
 
-    LocalDate parseStartTime(String[] data) {
+    private LocalDate parseStartTime(String[] data) {
         for (String s : data) {
             if (s != null && (s.contains(START_TIME))) {
                 String[] columns = parseColumns(s);
@@ -160,7 +151,7 @@ public class UniversalMapper {
         return farFuture;
     }
 
-    LocalDate parseUpdateTime(String[] data) {
+    private LocalDate parseUpdateTime(String[] data) {
         for (String s : data) {
             if (s != null && (s.contains(START_TIME))) {
                 String[] columns = parseColumns(s);
@@ -173,10 +164,13 @@ public class UniversalMapper {
         return farFuture;
     }
 
-    public Lot mapSyndEntryToLot(SyndEntry entry) {
+    public Lot map(SyndEntry entry) {
         Lot lot = new Lot();
 
         String[] dataArrayFromSyndEntry = entry.getDescription().getValue().split("<br/>");
+
+        slf4jLogger.info(Arrays.toString(dataArrayFromSyndEntry));
+
         fillLotUsingEntry(lot, dataArrayFromSyndEntry);
         return lot;
     }
